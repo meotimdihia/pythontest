@@ -1,0 +1,57 @@
+# Nmap 6.00 scan initiated Wed Nov 13 14:36:47 2013 as: nmap -T4 -A -v -Pn -oN 192.168.11.112.nmap.txt 192.168.11.112
+Nmap scan report for 192.168.11.112
+Host is up (0.00024s latency).
+Not shown: 989 closed ports
+PORT      STATE SERVICE     VERSION
+80/tcp    open  http        Apache httpd 2.2.22 ((Win64) PHP/5.4.3)
+|_http-methods: No Allow or Public header in OPTIONS response (status code 200)
+|_http-favicon: Unknown favicon MD5: 09155492E9DAAAF0957F9F8D857B2780
+|_http-title: WAMPSERVER Homepage
+135/tcp   open  msrpc       Microsoft Windows RPC
+139/tcp   open  netbios-ssn
+445/tcp   open  netbios-ssn
+2869/tcp  open  http        Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+3306/tcp  open  mysql       MySQL (unauthorized)
+5101/tcp  open  admdog?
+49152/tcp open  msrpc       Microsoft Windows RPC
+49153/tcp open  msrpc       Microsoft Windows RPC
+49154/tcp open  msrpc       Microsoft Windows RPC
+49155/tcp open  msrpc       Microsoft Windows RPC
+MAC Address: 50:46:5D:50:3D:6C (Unknown)
+Device type: general purpose
+Running: Microsoft Windows 7|2008
+OS CPE: cpe:/o:microsoft:windows_7 cpe:/o:microsoft:windows_server_2008::sp1
+OS details: Microsoft Windows 7 or Windows Server 2008 SP1
+Uptime guess: 2.240 days (since Mon Nov 11 08:56:25 2013)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=263 (Good luck!)
+IP ID Sequence Generation: Incremental
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| nbstat: 
+|   NetBIOS name: MT1544-PC, NetBIOS user: <unknown>, NetBIOS MAC: 50:46:5d:50:3d:6c (unknown)
+|   Names
+|     WORKGROUP<00>        Flags: <group><active>
+|     MT1544-PC<00>        Flags: <unique><active>
+|     MT1544-PC<20>        Flags: <unique><active>
+|_    WORKGROUP<1e>        Flags: <group><active>
+| smb-security-mode: 
+|   Account that was used for smb scripts: guest
+|   User-level authentication
+|   SMB Security: Challenge/response passwords supported
+|_  Message signing disabled (dangerous, but default)
+|_smbv2-enabled: Server supports SMBv2 protocol
+| smb-os-discovery: 
+|   OS: Windows 7 Ultimate 7601 Service Pack 1 (Windows 7 Ultimate 6.1)
+|   NetBIOS computer name: MT1544-PC
+|   Workgroup: WORKGROUP
+|_  System time: 2013-11-13 14:38:59 UTC+7
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   0.24 ms 192.168.11.112
+
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+# Nmap done at Wed Nov 13 14:41:20 2013 -- 1 IP address (1 host up) scanned in 273.14 seconds

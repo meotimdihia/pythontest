@@ -1,0 +1,79 @@
+# Nmap 6.00 scan initiated Wed Nov 13 14:07:29 2013 as: nmap -T4 -A -v -Pn -oN 192.168.11.118.nmap.txt 192.168.11.118
+Nmap scan report for 192.168.11.118
+Host is up (0.00034s latency).
+Not shown: 987 closed ports
+PORT      STATE SERVICE         VERSION
+80/tcp    open  http            Apache httpd 2.4.3 ((Win32) OpenSSL/1.0.1c PHP/5.4.7)
+|_http-methods: No Allow or Public header in OPTIONS response (status code 200)
+|_http-title: phpinfo()
+135/tcp   open  msrpc           Microsoft Windows RPC
+139/tcp   open  netbios-ssn
+443/tcp   open  ssl/http        Apache httpd 2.4.3 ((Win32) OpenSSL/1.0.1c PHP/5.4.7)
+|_http-title: Site doesn't have a title (text/html).
+|_http-methods: No Allow or Public header in OPTIONS response (status code 200)
+|_http-favicon: Unknown favicon MD5: 3BD2EC61324AD4D27CB7B0F484CD4289
+| ssl-cert: Subject: commonName=localhost
+| Issuer: commonName=localhost
+| Public Key type: rsa
+| Public Key bits: 1024
+| Not valid before: 2009-11-10 23:48:47
+| Not valid after:  2019-11-08 23:48:47
+| MD5:   a0a4 4cc9 9e84 b26f 9e63 9f9e d229 dee0
+|_SHA-1: b023 8c54 7a90 5bfa 119c 4e8b acca eacf 3649 1ff6
+445/tcp   open  netbios-ssn
+902/tcp   open  ssl/vmware-auth VMware Authentication Daemon 1.10 (Uses VNC, SOAP)
+912/tcp   open  vmware-auth     VMware Authentication Daemon 1.0 (Uses VNC, SOAP)
+3306/tcp  open  mysql           MySQL (unauthorized)
+6881/tcp  open  tcpwrapped
+49152/tcp open  msrpc           Microsoft Windows RPC
+49153/tcp open  msrpc           Microsoft Windows RPC
+49154/tcp open  msrpc           Microsoft Windows RPC
+49155/tcp open  msrpc           Microsoft Windows RPC
+MAC Address: 14:DA:E9:B4:AC:7B (Asustek Computer)
+No exact OS matches for host (If you know what OS is running on it, see http://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=6.00%E=4%D=11/13%OT=80%CT=1%CU=36337%PV=Y%DS=1%DC=D%G=Y%M=14DAE9%
+OS:TM=5283258F%P=x86_64-unknown-linux-gnu)SEQ(SP=FD%GCD=1%ISR=10C%TI=I%CI=I
+OS:%II=I%SS=S%TS=7)OPS(O1=M5B4NW8ST11%O2=M5B4NW8ST11%O3=M5B4NW8NNT11%O4=M5B
+OS:4NW8ST11%O5=M5B4NW8ST11%O6=M5B4ST11)WIN(W1=2000%W2=2000%W3=2000%W4=2000%
+OS:W5=2000%W6=2000)ECN(R=Y%DF=Y%T=81%W=2000%O=M5B4NW8NNS%CC=N%Q=)T1(R=Y%DF=
+OS:Y%T=81%S=O%A=S+%F=AS%RD=0%Q=)T2(R=Y%DF=Y%T=81%W=0%S=Z%A=S%F=AR%O=%RD=0%Q
+OS:=)T3(R=Y%DF=Y%T=81%W=0%S=Z%A=O%F=AR%O=%RD=0%Q=)T4(R=Y%DF=Y%T=81%W=0%S=A%
+OS:A=O%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=81%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%
+OS:DF=Y%T=81%W=0%S=A%A=O%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=81%W=0%S=Z%A=S+%F=AR%
+OS:O=%RD=0%Q=)U1(R=Y%DF=N%T=81%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD
+OS:=G)IE(R=Y%DFI=N%T=81%CD=Z)
+
+Uptime guess: 9.022 days (since Mon Nov  4 13:36:59 2013)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=253 (Good luck!)
+IP ID Sequence Generation: Incremental
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| nbstat: 
+|   NetBIOS name: MT910-PC, NetBIOS user: <unknown>, NetBIOS MAC: 14:da:e9:b4:ac:7b (Asustek Computer)
+|   Names
+|     MT910-PC<00>         Flags: <unique><active>
+|     WORKGROUP<00>        Flags: <group><active>
+|     MT910-PC<20>         Flags: <unique><active>
+|_    WORKGROUP<1e>        Flags: <group><active>
+| smb-security-mode: 
+|   Account that was used for smb scripts: guest
+|   User-level authentication
+|   SMB Security: Challenge/response passwords supported
+|_  Message signing disabled (dangerous, but default)
+|_smbv2-enabled: Server supports SMBv2 protocol
+| smb-os-discovery: 
+|   OS: Windows 7 Ultimate 7601 Service Pack 1 (Windows 7 Ultimate 6.1)
+|   NetBIOS computer name: MT910-PC
+|   Workgroup: WORKGROUP
+|_  System time: 2013-11-13 14:08:38 UTC+7
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   0.34 ms 192.168.11.118
+
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+# Nmap done at Wed Nov 13 14:09:03 2013 -- 1 IP address (1 host up) scanned in 95.11 seconds

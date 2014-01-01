@@ -1,0 +1,1 @@
+py "C:\xampp\htdocs\python\test2.py"

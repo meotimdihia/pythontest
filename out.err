@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\xampp\htdocs\python\usb_test.py", line 122, in <module>
+    main()
+  File "C:\xampp\htdocs\python\usb_test.py", line 92, in main
+    dev.write(1, raw, 0, 100)
+  File "C:\Python27\lib\site-packages\usb\core.py", line 611, in write
+    fn = fn_map[self._ctx.get_endpoint_type(self, endpoint, intf)]
+  File "C:\Python27\lib\site-packages\usb\core.py", line 181, in get_endpoint_type
+    etype = util.endpoint_type(e.bmAttributes)
+AttributeError: 'NoneType' object has no attribute 'bmAttributes'
