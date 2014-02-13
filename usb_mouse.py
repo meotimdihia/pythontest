@@ -4,7 +4,7 @@ import sys
 interface = 0
 # use command line: lsusb
 
-dev = usb.core.find(idVendor=0x046D, idProduct=0xC05A)
+dev = usb.core.find(idVendor=0x0458, idProduct=0x003a)
 
 def main():
 

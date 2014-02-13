@@ -11,9 +11,12 @@ import sys
 import usb.core
 import usb.util
 import time
-
-VENDOR_ID = 0x0B38
-PRODUCT_ID = 0x0010
+# VENDOR_ID = 0x0458 #mouse
+# PRODUCT_ID = 0x003a #mouse
+VENDOR_ID = 0x10c4 # nhiet do
+PRODUCT_ID = 0xea60
+# VENDOR_ID = 0x08ff # id
+# PRODUCT_ID = 0x0009
 DATA_SIZE = 167
 
 # keycode mapping
@@ -62,18 +65,19 @@ class MagSwipe:
         if device is None:
             sys.exit("Could not find MagTek USB HID Swipe Reader.")
 
-        # make sure the hiddev kernel driver is not active
-        # if device.is_kernel_driver_active(0):
-        #     try:
-        #         device.detach_kernel_driver(0)
-        #     except usb.core.USBError as e:
-        #         sys.exit("Could not detatch kernel driver: %s" % str(e))
+        #make sure the hiddev kernel driver is not active
+        if device.is_kernel_driver_active(0):
+            try:
+                print "detaching device..."
+                device.detach_kernel_driver(0)
+            except usb.core.USBError as e:
+                sys.exit("Could not detatch kernel driver: %s" % str(e))
 
-        # set configuration
+        #set configuration
         try:
-            pass
-            #device.set_configuration()
-            #device.reset()
+            print 'setting configuration...'
+            device.set_configuration()
+            # device.reset()
         except usb.core.USBError as e:
             sys.exit("Could not set configuration: %s" % str(e))
 
@@ -85,15 +89,17 @@ class MagSwipe:
         swiped = False
 
         print self._device
-        
+        # print self._device.deviceClass
+        # print "device name=",_name
+
         print 'endpoint %s' % self._endpoint
         print "Please type a key on keyboard..."
 
         while 1:
             try:
 
-                data = self._device.read(self._endpoint.bEndpointAddress, self._endpoint.wMaxPacketSize)
-
+                data = self._device.ctrl_transfer(self._endpoint.bEndpointAddress, CTRL_LOOPBACK_READ, 0, 0, self._endpoint.wMaxPacketSize)
+                print data
                 if not swiped:
                     print "Reading..."
                 swiped = True
@@ -103,7 +109,7 @@ class MagSwipe:
                 print sret
                 map_keys = lambda c: key_pages_shift[c[1]] if c[0] is 2 else key_pages[c[1]]
                 data = "".join(map(map_keys, [(d[0], d[2]) for d in chunks(data, 8)]))
-                print "key: " . data
+                print "key: " + data
             except usb.core.USBError as e:
                 if e.args[0] == 110 and swiped:
                     if len(data) < DATA_SIZE:
@@ -122,4 +128,4 @@ class MagSwipe:
         return data
 
 if __name__ == "__main__":
-    print MagSwipe().wait_for_swipe()
+    MagSwipe().wait_for_swipe()
