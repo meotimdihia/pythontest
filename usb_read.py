@@ -1,42 +1,56 @@
 import usb.core
 import usb.util
+import usb.backend
+import sys
 import time
-from pprint import pprint
 
-VENDOR_ID = 0x0B38
-PRODUCT_ID = 0x0010
+VENDOR_ID = 0x05ac # nhiet do
+PRODUCT_ID = 0x12a0
 
-# find the USB device
-device = usb.core.find(idVendor=VENDOR_ID,
-                       idProduct=PRODUCT_ID)
-if device != None:
-    # use the first/default configuration
-    device.set_configuration()
-    #pprint(vars(device))
-    #pprint(vars(device.get_active_configuration()))
-    # first endpoint
-    endpoint = device[0][(0,0)][0]
+dev = usb.core.find(idVendor=VENDOR_ID, idProduct=PRODUCT_ID)
+# was it found?
+if dev is None:
+    raise ValueError('Device not found')
 
-    # read a data packet
-    attempts = 10
-    data = None
+dev.set_configuration()
 
+endpoint = dev[0][(0,0)][0]
 
-    while data == None and attempts > 0:
-        try:
+while True:
+    # data = dev.ctrl_transfer(0x41,0x19,0x1FD,0x0, [26, 0, 0, 0, 17, 19])
+    # print data
+    data = dev.ctrl_transfer(0xC0, 0x45, 0, 0, 1)
+    print data
+    # data = dev.ctrl_transfer(0x41,0x13,0x1FD,0x0, [1, 0, 0, 0, 4, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0])
+    # print data
+    # data = dev.ctrl_transfer(0xC1,0x10,0x0,0x0, 0x14)
+    # print data
+    # data = dev.ctrl_transfer(0xC1,0x8,0x0,0x0, 2)
+    # print data
+    dev.set_configuration()
+    data = dev.read(endpoint.bEndpointAddress, endpoint.wMaxPacketSize, 0, 3000)
+    print data 
+    time.sleep(1)
 
-            data = device.read(endpoint.bEndpointAddress,
-                               endpoint.wMaxPacketSize, 0, 100)
-            print 'Reading...'
-        except usb.core.USBError as e:
-            data = None
-            if e.args == ('Operation timed out',):
-                print 1
-                attempts -= 1
-                continue
-        time.sleep(.10)
+data = dev.read(endpoint.bEndpointAddress, endpoint.wMaxPacketSize, 0, 100000)
+print data 
 
-    sret = ''.join([chr(x) for x in data])
-    print sret
-else:
-    print 'Can not find this device'
+# blank = False
+# raw = False
+# while True:
+#     print "End Point: %s" % endpoint.bEndpointAddress
+
+#     data = dev.read(endpoint.bEndpointAddress, endpoint.wMaxPacketSize, 0, 1000)
+#     print 1
+#     if raw == True:
+#         print(data)
+#     elif data[0] != 240:
+#         line = ""
+#         for value in data:
+#             line += str(value) + " " * (4 - len(str(value)))
+#         print(line)
+#         blank = False
+#     elif blank == False:
+#         blank = True
+#         print("")
+

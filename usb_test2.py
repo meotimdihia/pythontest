@@ -13,8 +13,11 @@ import usb.util
 import time
 # VENDOR_ID = 0x0458 #mouse
 # PRODUCT_ID = 0x003a #mouse
-VENDOR_ID = 0x10c4 # nhiet do
-PRODUCT_ID = 0xea60
+# VENDOR_ID = 0x10c4 # nhiet do
+# PRODUCT_ID = 0xea60
+VENDOR_ID = 0x0B38 # kb
+PRODUCT_ID = 0x0010
+
 # VENDOR_ID = 0x08ff # id
 # PRODUCT_ID = 0x0009
 DATA_SIZE = 167
@@ -66,12 +69,12 @@ class MagSwipe:
             sys.exit("Could not find MagTek USB HID Swipe Reader.")
 
         #make sure the hiddev kernel driver is not active
-        if device.is_kernel_driver_active(0):
-            try:
-                print "detaching device..."
-                device.detach_kernel_driver(0)
-            except usb.core.USBError as e:
-                sys.exit("Could not detatch kernel driver: %s" % str(e))
+        # if device.is_kernel_driver_active(0):
+        #     try:
+        #         print "detaching device..."
+        #         device.detach_kernel_driver(0)
+        #     except usb.core.USBError as e:
+        #         sys.exit("Could not detatch kernel driver: %s" % str(e))
 
         #set configuration
         try:
@@ -98,7 +101,7 @@ class MagSwipe:
         while 1:
             try:
 
-                data = self._device.ctrl_transfer(self._endpoint.bEndpointAddress, CTRL_LOOPBACK_READ, 0, 0, self._endpoint.wMaxPacketSize)
+                data = self._device.read(self._endpoint.bEndpointAddress, self._endpoint.wMaxPacketSize, 0, 1024)
                 print data
                 if not swiped:
                     print "Reading..."
