@@ -20,7 +20,7 @@ if dev is None:
 # dev.reset()
 
 endpoint = dev[0][(0,0)][0]
-print endpoint
+print "Endpoint: %s address: %s" % (endpoint, endpoint.bEndpointAddress)
 #make sure the hiddev kernel driver is not active
 
 try:
@@ -106,17 +106,34 @@ dev.ctrl_transfer(0xC1,0x8,0x0,0x0,0x2) # In 03
 dev.read(0x81, endpoint.wMaxPacketSize, 0, 1000) # 1 bytes 00
  
 dev.read(0x81, endpoint.wMaxPacketSize, 0, 1000) # 512 bytes = 0x200 
- 
-dev.ctrl_transfer(0x41,0x0B,0x01FD,0x0) # Out
- 
-dev.ctrl_transfer(0xC1,0x10,0x0,0x0,0x14) # In 04, 00, 00, 00, 00, 00, 00, 01, 00 ....
+
 
 block = []
+print 'MaxPacketSize: %s' % endpoint.wMaxPacketSize
+show = False;
+
 while True: 
-    # data = dev.read(endpoint.bEndpointAddress, endpoint.wMaxPacketSize, 0, 0x0) # 1 bytes 00
-         
-    data = dev.read(endpoint.bEndpointAddress, endpoint.wMaxPacketSize, 0, 100) # 512 bytes = 0x200
-    print data
+ 
+    dev.ctrl_transfer(0x41,0x0B,0x01FD,0x0) # Out
+ 
+    dev.ctrl_transfer(0xC1,0x10,0x0,0x0,0x14) # In 04, 00, 00, 00, 00, 00, 00, 01, 00 ....
+
+    data = dev.read(endpoint.bEndpointAddress, endpoint.wMaxPacketSize, 0, 1000) # 512 bytes = 0x200
+    print data;
+    if len(data) == 1 and data[0] == 0:
+        show = True
+        time.sleep(0.4)
+        continue
+
+    if len(data) == 12 and show == True:
+        hexdata = []
+        for i, v in enumerate(data):
+            hexdata.append("%0.2X" % v);
+        print hexdata
+        show = False
+    
+
+
     # n = 0
     # for i,v in enumerate(data):
     #     # check "i" is first character or not continue to loop
@@ -140,7 +157,7 @@ while True:
     #         block[11] # decimal wind speed ?
     #         block = []
 
-    time.sleep(0.4)
+    time.sleep(0.3)
 
 # data = dev.ctrl_transfer(0xC1,0x8,0x0,0x0,1)
 # print data
