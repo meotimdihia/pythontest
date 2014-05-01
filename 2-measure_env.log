@@ -1,0 +1,7 @@
+ERROR:2014-05-01 21:16:59,622 Code: %s, Reason: %s
+2014-05-01 21:17:32,438: ERROR - Code: %s, Reason: %s
+2014-05-01 21:17:37,174: ERROR - Code: %s, Reason: %s
+2014-05-01 21:17:56,404: ERROR - Code: %s, Reason: %s
+2014-05-01 21:18:24,197: ERROR - Code: 500, Reason: Internal Server Error
+2014-05-01 21:20:03,970: ERROR - Code: 500, Reason: Internal Server Error
+2014-05-01 21:20:25,882: ERROR - Code: 500, Reason: Internal Server Error
