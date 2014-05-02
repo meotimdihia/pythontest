@@ -96,7 +96,7 @@ while 1:
     print 'humidity: ' + humidity + '%',
     print 'temperature: ' + temperature,
 
-    if save_env_measure_mysql(60, 30) : # send data to server
+    if save_env_measure_mysql(humidity, temperature) : # send data to server
         print 'SAVED ' + time.strftime("%Y-%m-%d %H:%I:%S")
     else:
         print 'ERROR'
