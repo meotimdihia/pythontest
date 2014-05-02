@@ -5,3 +5,17 @@ ERROR:2014-05-01 21:16:59,622 Code: %s, Reason: %s
 2014-05-01 21:18:24,197: ERROR - Code: 500, Reason: Internal Server Error
 2014-05-01 21:20:03,970: ERROR - Code: 500, Reason: Internal Server Error
 2014-05-01 21:20:25,882: ERROR - Code: 500, Reason: Internal Server Error
+2014-05-02 11:31:11,725: ERROR - Code: 500, Reason: Internal Server Error
+2014-05-02 11:31:13,860: ERROR - Code: 500, Reason: Internal Server Error
+2014-05-02 11:32:10,250: ERROR - Code: 500, Reason: Internal Server Error
+2014-05-02 11:32:15,798: ERROR - Code: 500, Reason: Internal Server Error
+2014-05-02 11:33:03,133: ERROR - Code: 500, Reason: Internal Server Error
+2014-05-02 14:40:58,552: ERROR - (1136, "Column count doesn't match value count at row 1")
+2014-05-02 14:41:01,216: ERROR - (1136, "Column count doesn't match value count at row 1")
+2014-05-02 14:41:04,396: ERROR - (1136, "Column count doesn't match value count at row 1")
+2014-05-02 14:41:36,936: ERROR - (1136, "Column count doesn't match value count at row 1")
+2014-05-02 15:48:50,732: ERROR - (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '15:48:50, 1)' at line 4")
+2014-05-02 15:49:40,185: ERROR - (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '15:49:40, 1)' at line 4")
+2014-05-02 15:50:19,359: ERROR - (1136, "Column count doesn't match value count at row 1")
+2014-05-02 15:54:24,312: ERROR - (1045, "Access denied for user 'hpswine'@'192.168.2.97' (using password: YES)")
+2014-05-02 16:12:08,213: ERROR - (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '16:04:08, 2014-05-02 16:04:08, 1)' at line 4")
