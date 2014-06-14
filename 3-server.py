@@ -8,17 +8,19 @@ import time
 import sys
 import socket
 import threading
-#import MySQLdb # uncomment this line to save data direct in database
+import MySQLdb # uncomment this line to save data direct in database
 
 IP = '127.0.0.1'
 PORT = 5005
 BUFFER_SIZE = 20  # Normally 1024, but we want fast response
 TOKEN = 'HjXQxa5ItI'
 
-DB_HOST = '192.168.3.72'
-DB_NAME = 'hpswine'
-DB_USER = 'hpswine'
-DB_PASS = 'hp123'
+DB_CONN = None
+DB_HOST = '127.0.0.1'
+DB_NAME = 'test'
+DB_USER = 'root'
+DB_PASS = 'mysqlduhang'
+
 
 """ Function save temperature and humidity to server
 """
@@ -51,16 +53,21 @@ def save_env_measure(humidity, temperature):
             if (result['status'] == 1):
                 return True
     except Exception, e:
-        error = "Code: {0}, Reason: {1}".format(e.code, e.reason)
-        logging.error(error)
+        logging.error(e)
         print e
 
 """ Save data to database directly , but required install MySQLdb
 """
+
+
 def save_env_measure_mysql(humidity, temperature):
+    global DB_CONN
     try:
-        db = MySQLdb.connect(host=DB_HOST, user=DB_USER, passwd=DB_PASS, db=DB_NAME)
-        cur = db.cursor()
+        if not DB_CONN: 
+            print 'Connecting to DB ...'
+            DB_CONN = MySQLdb.connect(host=DB_HOST, user=DB_USER, passwd=DB_PASS, db=DB_NAME)
+            print 'Connected';
+        cur = DB_CONN.cursor()
         cur.execute("""INSERT INTO sw_weather 
                 (humidity, temperature, wind_speed, measure_time,
                     created_at, updated_at, id_site) 
@@ -70,13 +77,14 @@ def save_env_measure_mysql(humidity, temperature):
                         time.strftime("%Y-%m-%d %H:%I:%S"), time.strftime("%Y-%m-%d %H:%I:%S"), 1
                     )
         )
-        db.commit()
+        DB_CONN.commit()
     except Exception, e:
         print e
         logging.error(e)
         return False
 
     return True
+
 
 
 """ Receive data was sent from devices 
@@ -87,20 +95,24 @@ s.bind((IP, PORT))
 s.listen(1)
 
 while 1:
-    conn, addr = s.accept()
-    data = conn.recv(BUFFER_SIZE)
+    try:
+        conn, addr = s.accept()
 
-    data = data.split(' ');
-    humidity = data[0].replace("%","")
-    temperature = data[1].replace("%","")
-    print 'humidity: ' + humidity + '%',
-    print 'temperature: ' + temperature,
+        data = conn.recv(BUFFER_SIZE)
 
-    if save_env_measure_mysql(humidity, temperature) : # send data to server
-        print 'SAVED ' + time.strftime("%Y-%m-%d %H:%I:%S")
-    else:
-        print 'ERROR'
-    if not data: break
-    time.sleep(1)
+        data = data.split(' ');
+        humidity = data[0].replace("%","")
+        temperature = data[1].replace("%","")
+        print 'humidity: ' + humidity + '%',
+        print 'temperature: ' + temperature,
 
-conn.close()
+        if save_env_measure_mysql(humidity, temperature) : # send data to server
+            print 'SAVED ' + time.strftime("%Y-%m-%d %H:%I:%S")
+        else:
+            print 'ERROR'
+        if not data: break
+
+        time.sleep(1)
+        conn.close()
+    except Exception, e:
+        logging.error(e)
